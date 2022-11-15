@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rive_flutter_exo/bird_animation.dart';
 import 'package:rive_flutter_exo/play_animation.dart';
 
 
@@ -30,7 +31,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     PlayPauseAnimation(),
-    Container(),
+    BirdAnimation(),
     Container(),
     Container(),
 
