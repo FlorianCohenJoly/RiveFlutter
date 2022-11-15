@@ -1,20 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
+import 'package:rive_flutter_exo/play_animation.dart';
 
-void main() {
-  runApp(MaterialApp(home: SimpleAnimation()));
-}
 
-class SimpleAnimation extends StatelessWidget {
-  const SimpleAnimation({Key? key}) : super(key: key);
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  static const String _title = 'Flutter Rive';
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: _title,
+      home: MyStatefulWidget(),
+    );
+  }
+}
+
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _selectedIndex = 0;
+  static final List<Widget> _widgetOptions = <Widget>[
+    PlayPauseAnimation(),
+    Container(),
+    Container(),
+    Container(),
+
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: const Text('Flutter Rive Animation'),
+      ),
       body: Center(
-        child: RiveAnimation.network(
-          'https://cdn.rive.app/animations/vehicles.riv',
-        ),
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.play_circle),
+            label: 'Play/Pause',
+            backgroundColor: Colors.pink,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.flutter_dash),
+            label: 'Flutter Bird',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.mail),
+            label: 'Chargement',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.face),
+            label: 'Emojis',
+            backgroundColor: Colors.orange,
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        unselectedItemColor: Colors.grey.shade300,
+        onTap: _onItemTapped,
+        showUnselectedLabels: true,
       ),
     );
   }
